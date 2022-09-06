@@ -58,20 +58,29 @@ const ProductList = () => {
             <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("lighting")}>Lighting</button>
           </div>
           <div className="col-md-9">
-   <button className="btn btn-primary" onClick = {sortByPrice}>Sort by Price</button>
+            <div className='d-flex justify-content-around'>
+   <button className="btn btn-success" onClick = {sortByPrice}>Sort by Price</button>
+   <button className="btn btn-success" onClick = {sortByPrice}>Sort by Discount</button>
+   <button className="btn btn-success" onClick = {sortByPrice}>Sort by Ratings</button>
+   </div>
+
             <div className="row">
               {
                 console.log(filteredData)}{
                 filteredData.map((item,index) => {
-                  const { id, title, price, thumbnail } = item;
+                  const { id, title, price, thumbnail,discountPercentage} = item;
                   return (
                     <>
-                      <div className="col-md-4 mb-1" key={id+index}>
+                      <div className="col-md-4 mb-4 mt-5" key={id+index}>
                         <div className="card">     
                           <img className="card-img-top" src={thumbnail} alt="Card image cap" />
                           <div className="card-body">
                             <h5 className="card-title">{title}</h5>
-                            <p className="card-text">{price}</p>
+                            <div className='d-flex justify-content-start'>
+                            <p className="card-text">{Math.round(discountPercentage)}</p>
+                            <p className="card-text">&#8377;{price}</p>
+                            </div>
+
                             <button className="btn btn-primary">Buy Now</button>
                           </div>
                         </div>
