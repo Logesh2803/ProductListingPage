@@ -3,12 +3,10 @@ import { Table } from 'react-bootstrap'
 const ProductList = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
+  const [sortBy, setSortBy] = useState("id");
 
-  const sortByPrice = () => {
-    console.log(filteredData)
-    const sortedData = filteredData.sort((a,b)=>a.price-b.price)
-    console.log(sortedData)
-    setFilteredData(sortedData)
+  const handleSortBy = (flag) => {
+    setSortBy(flag);
   }
   const filterResult = (catItem) => {
     const filtered = fetchedData.filter((curData) => curData.category === catItem)
@@ -21,13 +19,16 @@ const ProductList = () => {
       result = await result.json()
       setFetchedData(result.products)
       setFilteredData(result.products)
-
     }
     fetchData()
   }, [])
 
   console.log("result", filteredData)
-
+  const categories = ["Smartphones", "Laptops", "Fragrances", "Skincare", "Groceries", "Home-Decoration",
+    "Furniture", "Tops", "Womens-Dresses", "Womens-Shoes", "Mens-Shirts", "Mens-Shoes",
+    "Mens-Watches", "Womens-Watches", "Womens-Bags", "Womens-Jewellery", "Sunglasses",
+    "Automotive", "Motorcycle", "Lighting"
+  ]
   return (
     <div >
       <h1 className='text-center bg-secondary text-white mt-2'>Product Listing Page</h1>
@@ -35,27 +36,12 @@ const ProductList = () => {
         <div className="row mt-5 mx-2">
           <div className="col-md-3">
             <h1 className="text-secondary mx-2 mb-4">Categories</h1>
-            <button className="btn btn-success w-75 mb-4" onClick={() => setFilteredData(fetchedData)}>All</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("smartphones")}>Smartphones</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("laptops")}>Laptops</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("fragrances")}>Fragrances</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("skincare")}>Skincare</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("groceries")}>Groceries</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("home-decoration")}>Home-Decoration</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("furniture")}>Furniture</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("tops")}>Tops</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("womens-dresses")}>Womens-Dresses</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("womens-shoes")}>Womens-Shoes</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("mens-shirts")}>Mens-Shirts</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("mens-shoes")}>Mens-Shoes</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("mens-watches")}>Mens-Watches</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("womens-watches")}>Womens-Watches</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("womens-bags")}>Womens-Bags</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("womens-jewellery")}>Womens-Jewellery</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("sunglasses")}>Sunglasses</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("automotive")}>Automotive</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("motorcycle")}>Motorcycle</button>
-            <button className="btn btn-success w-75 mb-4" onClick={() => filterResult("lighting")}>Lighting</button>
+            <button className="btn btn-success w-75 mb-4" onClick={() => (setFilteredData(fetchedData), setSortBy("id"))}>All</button>
+            {
+              categories.map(category =>
+                <button className="btn btn-success w-75 mb-4" onClick={() => (filterResult(category.toLowerCase()), setSortBy("id"))}>{category}</button>
+              )
+            }
           </div>
           <div className="col-md-9">
             <div className='d-flex justify-content-around'>
