@@ -17,3 +17,29 @@ body{
 .card-img-top{
 height: 190px;
 }
+.mainbody{
+display: flex;
+flex-direction: row;
+width: 100%;
+background-color: green;
+}
+.one{
+  width: 80%;
+  text-align: center;
+  margin-left: 20%;
+}
+.cart{
+  width:20%;
+  text-align: right;
+}
+/* .customTable{
+  width: 40%;
+
+} */
+.tableMain{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
